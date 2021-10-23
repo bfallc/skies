@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="skyquilt2.css">
+    <!-- <meta http-equiv="Cache-Control" content="no-store, must-revalidate"> -->
+    <title>Document</title>
+</head>
+<body style="background-color: black; margin:0%; padding: 0;">
+
+<div id="fullscreendiv" width="100%">
+
+  <div class="container-div2">
+    <img id="mooreheadncbayandpiers" src="http://westcam.carteret.edu/axis-cgi/mjpg/video.cgi">
+  </div>
+
+  <div class="container-div2">
+    <img id="outdoorcityscenesweden" src="http://194.103.218.15/axis-cgi/mjpg/video.cgi">
+  </div>
+
+  <div class="container-div3">
+    <img id="portinrussia" src="http://185.97.165.78/mjpg/video.mjpg">
+  </div>
+
+
+</div>
+
+<script>
+
+    document.addEventListener("keypress", function(event) {
+        if (event.keyCode == 102) {
+            //if 'f' pressed, implement fullscreen
+            // alert('hi.');
+            openFullscreen();
+        }
+    });
+
+    function openFullscreen() {
+      var elem = document.getElementById("fullscreendiv");
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+.container-div1 {
+
+    position:absolute; 
+    width: 1200px; 
+    height: 1200px; 
+    width: 50%; 
+    height: 50vw;
+
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%); 
+    margin: auto; 
+
+}
+
+.container-div2 {
+
+    position:absolute; 
+    width: 1200px; 
+    height: 1200px; 
+    width: 50%; 
+    height: 50vw;
+
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%); 
+    margin: auto; 
+
+}
+
+.container-div3 {
+
+    position:absolute; 
+    width: 1200px; 
+    height: 1200px; 
+    width: 50%; 
+    height: 50vw; 
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%); 
+    margin: auto; 
+
+}
+
+#mooreheadncbayandpiers {
+    /* 1920x1080 */
+    top: 0px;
+    position: absolute;
+    left: -800px;
+    width:1920px; 
+    clip-path: polygon(800px 0px, 1200px 0px, 1200px 400px, 800px 400px); /* 400px square */
+    transform-origin: 800px 0px;
+    transform: scale(3);
+    
+}
+
+#outdoorcityscenesweden {
+
+    /* 1280x720 */
+    position: absolute;
+    left: -330px;
+    top: 0px; /* Move up by amount polygon is spaced from top edge*/
+    width:1280px;
+    clip-path: polygon(
+        496px 166px, 413px 83px, 413px 0px, 496px 83px, 496px 166px,
+        579px 83px, 662px 83px, 579px 166px, 496px 166px,
+        579px 249px, 579px 332px, 496px 249px, 496px 166px,
+        413px 249px, 330px 249px, 413px 166px, 496px 166px);
+
+     /* 330px 0px, 662px 0px, 662px 332px, 330px 332px */
+     /* 332 sq, coords - X: 330, 413, 496, 579, 662  / Y: 0, 83, 166, 249, 332 */
+
+    transform-origin: 330px 0px; /* put transform origin at corner of clip path */
+    transform: scale(3.6145); /* 1200px div / total width of polygon cut */
+    
+    
+}
+
+#portinrussia {
+    /* 640x480 */
+    position: absolute;
+    left: -250px;
+    top: 0px;
+    width:640px;
+    clip-path: polygon(
+        300px 100px, 250px 50px, 350px 50px, 400px 0px, 400px 100px, 450px 150px, 350px 150px, 300px 200px, 300px 150px,
+        400px 150px, 400px 50px, 300px 50px, 300px 100px);
+
+
+    transform-origin: 250px 0px;
+    transform: scale(6);
+
+    /* 250px 0px, 450px 0px, 450px 200px, 250px 200px */
+    /* 200 sq, coords - X: 250, 300, 350, 400, 450  / Y: 0, 50, 100, 150, 200 */
+    
+}
+
+
+
+
