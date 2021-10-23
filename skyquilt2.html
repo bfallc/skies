@@ -10,17 +10,17 @@
 </head>
 <body style="background-color: black; margin:0%; padding: 0;">
 
-<div id="fullscreendiv" width="100%">
+<div id="fullscreendiv" width="100vw" height="100vh">
 
-  <div class="container-div2">
+  <div class="container-div">
     <img id="mooreheadncbayandpiers" src="http://westcam.carteret.edu/axis-cgi/mjpg/video.cgi">
   </div>
 
-  <div class="container-div2">
+  <div class="container-div">
     <img id="outdoorcityscenesweden" src="http://194.103.218.15/axis-cgi/mjpg/video.cgi">
   </div>
 
-  <div class="container-div3">
+  <div class="container-div">
     <img id="portinrussia" src="http://185.97.165.78/mjpg/video.mjpg">
   </div>
 
@@ -46,6 +46,22 @@
       } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
       }
+    }
+
+    //UP
+    function moveUp() {
+        var obj = document.getElementById("container");
+        var topVal = parseInt(obj.style.top, 10);
+        // console.log("topVal: "+topVal);
+        obj.style.top = (topVal - 2) + "%";    
+    }
+
+    //UP
+    function moveDown() {
+        var obj = document.getElementById("container");
+        var topVal = parseInt(obj.style.top, 10);
+        // console.log("topVal: "+topVal);
+        obj.style.top = (topVal + 2) + "px";    
     }
 
 
