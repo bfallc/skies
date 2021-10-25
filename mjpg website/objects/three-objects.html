@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black;">
+
+    <div id="container-div" width="1200">
+
+    <img id="guard booth" style="
+    position: absolute;
+    left: -200px;
+    top: 0px;
+    width:1200px;
+    clip-path: polygon(65% 45.6%, 68.5% 47.2%, 68.3% 61%, 65% 63.5%, 61.4% 62%, 61.5% 47%);"
+    src="http://200.122.223.34:8004/axis-cgi/mjpg/video.cgi">
+
+
+    <img id="pier" style="
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width:1200px;
+    clip-path: polygon(25.2% 77%, 64.6% 70.4%, 64.6% 68.7%, 70.6% 67.6%, 78% 70.15%, 78% 76.3%, 71% 78%, 68.5% 75.7%, 26% 84%, 26% 80%);"
+    src="http://eastcam.carteret.edu/axis-cgi/mjpg/video.cgi">
+
+    <img id="belgrade" style="
+    position: absolute;
+    left: 0px;
+    top: 30px;
+    width:1000px;
+    clip-path: polygon(26.5% 0, 34% 0%, 55% 70%, 42% 98%, 15% 88%, 25% 74%);"
+    src="http://109.206.96.247:8080/cam_1.cgi">
+
+
+</div>
+
+
+<div style="position: fixed; bottom: 0; display: block;">
+    
+    <button 
+        onclick="
+            openFullscreen(); //go fullscreen
+            document.body.style.cursor = 'none'; //hide cursor
+            document.getElementById('pier').style.display = 'none'; //hide other images
+    ">guard booth</button>
+ 
+ <button      
+    onclick="
+        openFullscreen(); //go fullscreen
+        document.body.style.cursor = 'none'; //hide cursor
+        document.getElementById('pier').style.display = 'none'; //hide other images
+">belgrade</button>
+
+
+     <button style="" onclick="openFullscreen(); document.body.style.cursor = 'none';">Open Video in Fullscreen Mode</button>
+ 
+ 
+</div>
+   
+<script>
+    var elem = document.getElementById("container-div");
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+    </script>
+
+</body>
+</html>

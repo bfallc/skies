@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="skyquilt3.css"> -->
+    <title>WaterQuilt1</title>
+
+    <style>
+        
+#fullscreendiv {
+    /* overflow: hidden; */
+}
+
+.container-div {
+
+    position:absolute; 
+
+    width: 1200px; 
+    height: 1200px; 
+
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-600px) translateY(-600px); 
+    margin: auto; 
+    overflow: hidden;
+
+}
+
+#riversomewhereusa {
+    /* 1920x1080 */
+    position: absolute;
+    left: -850px;
+    top: -400px;
+    width:1920px;
+    clip-path: polygon(850px 400px, 1320px 400px, 1320px 776px, 850px 776px); /* 470x376px */
+
+
+    transform-origin: 850px 400px; /* put transform origin at tl corner of clip path */
+    transform: scale(2.553); /* 1200px div / total width of polygon cut */
+
+
+    
+}
+
+#floridabeachpineisland {
+    /* 1280x720 */
+    position: absolute;
+    left: -830px;
+    top: -360px;
+    width:1280px;
+    clip-path: polygon(830px 360px, 920px 360px, 920px 390px, 1010px 420px, 1010px 360px, 1100px 360px, 1100px 390px, 1190px 420px, 
+    1190px 360px, 1280px 360px, 1280px 390px, 1190px 420px, 1190px 450px, 1280px 450px, 1280px 510px, 1190px 480px, 
+    1190px 450px, 1100px 450px, 1100px 390px, 1010px 420px, 1010px 450px, 920px 450px, 920px 510px, 1010px 480px, 
+    1010px 540px, 1100px 540px, 1100px 570px, 1190px 600px, 1190px 540px, 1280px 540px, 1280px 570px, 1190px 600px, 
+    1190px 630px, 1100px 630px, 1100px 690px, 1190px 660px, 1190px 720px, 1100px 720px, 1100px 690px, 1010px 660px, 
+    1010px 720px, 920px 720px, 920px 690px, 830px 660px, 830px 630px, 920px 630px, 920px 690px, 1010px 660px, 
+    1010px 630px, 1100px 630px, 1100px 570px, 1010px 600px, 1010px 540px, 920px 540px, 920px 510px, 830px 480px, 
+    830px 450px, 920px 450px, 920px 390px, 830px 420px, 830px 360px); /* 450x360px square*/
+
+    /* width: 830, 920, 1010, 1100, 1190, 1280 */
+     /* height: 360, 390, 420, 450, 480, 510, 540, 570, 600, 630, 660, 690, 720 */
+
+
+    transform-origin: 830px 360px; /* put transform origin at tl corner of clip path */
+    transform: scale(2.667); /* 1200px div / total width of polygon cut */
+
+}
+
+#rivernovascotia {
+    /* 1280x800 */
+    position: absolute;
+    left: 0px;
+    top: -464px;
+    width:1280px;
+    clip-path: polygon(168px 520px, 252px 492px, 252px 604px, 336px 576px, 336px 688px, 420px 660px, 420px 772px, 336px 744px, 336px 688px, 252px 660px,
+    252px 604px, 168px 576px, 168px 520px, 0px 576px, 84px 604px, 84px 660px, 168px 688px, 168px 744px, 84px 772px, 84px 660px, 
+    0px 688px, 0px 576px, 168px 520px); /* 420x336px */
+
+    /* width: 0,84,168,252,336,420 */
+     /* height: 464,492,520,546,576,604,632,660,688,716,744,772,800 */
+
+
+    transform-origin: 0px 464px; /* put transform origin at tl corner of clip path */
+    transform: scale(2.858); /* 1200px div / total width of polygon cut */
+
+}
+
+
+
+
+
+    </style>
+
+</head>
+<body style="background-color: black; margin:5%; padding: 0;">
+
+<div id="fullscreendiv" width="100%">
+
+  <div class="container-div">
+    <img id="riversomewhereusa" src="http://htadmcam01.larimer.org/mjpg/video.mjpg">
+  </div>
+
+
+
+  <div class="container-div">
+    <img id="rivernovascotia" src="http://camera.sissiboo.com:86/mjpg/video.mjpg">
+  </div>
+
+  <div class="container-div">
+    <img id="floridabeachpineisland" src="http://pine-island-weeki-cam.spectrum.net.edgesuite.net/axis-cgi/mjpg/video.cgi">
+  </div>
+
+
+</div>
+
+
+</body>
+</html>

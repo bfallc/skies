@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black;">
+
+    <div id="container-div" width="1200">
+
+    <img id="guard booth" style="
+    position: absolute;
+    left: -200px;
+    top: 0px;
+    width:1200px;
+    clip-path: polygon(44.7% 57%, 44.7% 68%, 34% 69%, 34% 58%);"
+    src="http://dg0sgw.myds.me/axis-cgi/mjpg/video.cgi">
+
+
+
+
+</div>
+
+
+<div style="position: fixed; bottom: 0; display: block;">
+    
+
+
+     <button style="" onclick="openFullscreen(); document.body.style.cursor = 'none';">Open Video in Fullscreen Mode</button>
+ 
+ 
+</div>
+   
+<script>
+    var elem = document.getElementById("container-div");
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+    </script>
+
+</body>
+</html>

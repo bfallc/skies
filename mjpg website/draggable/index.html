@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+        Remove this if you use the .htaccess -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Drag Points</title>
+        <!-- <link rel="stylesheet" href="css/reset.css" type="text/css"/> -->
+        <link rel="stylesheet" href="drag_points.css" type="text/css"/>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="../js/PerspectiveTransform.js"></script>
+
+
+    </head>
+    <body style="transform: scale(1);">
+        
+        <div id="container" style="left: 50%; top: 50%; transform:scale(1.0) translate(-50%, -50%);">
+            <!-- Image to warp -->
+            <img class="img" id="image" src="http://rp2.cams.fodd.ru/mjpg/video.mjpg">
+
+            <!-- Also acceptable: -->
+            <!-- <div class="img" style="background-image: url(lenna.jpg);"></div> -->
+
+            <!-- The corner draggers -->
+            <div class="corner tl" id="tl"></div>
+            <div class="corner tr" id="tr"></div>
+            <div class="corner bl" id="bl"></div>
+            <div class="corner br" id="br"></div>
+        </div>
+
+        <script>
+            // //LISTEN FOR KEY PRESS
+            // document.addEventListener("keyup", keyPushed);
+
+          
+            //set variable equal to the css id container 'id'
+            var container = $("#container");
+            //set variable equal to the css class 'img'
+            var img = $(".img");
+
+            //set variable corners equal to the css class 'corner'
+            //Note: variables become arrays for each DOM in the class. 
+            var corners = $(".corner");
+
+            // console.log("image x: "+document.getElementById("image").offsetHeight);
+
+            var IMG_WIDTH = document.getElementById("image").offsetWidth;
+            var IMG_HEIGHT = document.getElementById("image").offsetHeight;
+
+            //img[0] is first DOM element of class 'img'
+            //the transform is acting on the image
+            var transform = new PerspectiveTransform(img[0], IMG_WIDTH, IMG_HEIGHT, true);
+
+            //set 'tl' equal to the css position of the top left corner
+            var tl = corners.filter(".tl").css({
+                left : transform.topLeft.x,
+                top : transform.topLeft.y
+            });
+            var tr = corners.filter(".tr").css({
+                left : transform.topRight.x,
+                top : transform.topRight.y
+            });
+            var bl = corners.filter(".bl").css({
+                left : transform.bottomLeft.x,
+                top : transform.bottomLeft.y
+            });
+            var br = corners.filter(".br").css({
+                left : transform.bottomRight.x,
+                top : transform.bottomRight.y
+            });
+        
+            // var multiplierX = (transform.topRight.x - transform.topLeft.x)/4 ;
+
+            // var tl = corners.filter(".tl").css({
+            //     left : transform.topLeft.x + multiplierX,
+            //     top : transform.topLeft.y
+            // });
+            // var tr = corners.filter(".tr").css({
+            //     left : transform.topRight.x - multiplierX,
+            //     top : transform.topRight.y
+            // });
+            // var bl = corners.filter(".bl").css({
+            //     left : transform.bottomLeft.x + multiplierX,
+            //     top : transform.bottomLeft.y
+            // });
+            // var br = corners.filter(".br").css({
+            //     left : transform.bottomRight.x - multiplierX,
+            //     top : transform.bottomRight.y
+            // });
+
+            var target;
+            var targetPoint;
+
+            //keep track of the mouse position (to be used later), e = event
+            function onMouseMove(e) {
+                //get mouse position relative to top left corner of container
+                //i.e. negative position if left of container
+                //target = mouse dist from left edge - dist of top left corner of image from left edge
+                targetPoint.x = e.pageX - container.offset().left;
+                // console.log("targetPoint.x: "+targetPoint.x+", e.pageX: "+e.pageX+", container.offset().left: "+container.offset().left);
+                targetPoint.y = e.pageY - container.offset().top;
+                
+                //apply acquired position to css properties of target holder var
+                target.css({
+                    left : targetPoint.x,
+                    top : targetPoint.y
+                });
+
+                // check the polygon error, if it's 0, which mean there is no error
+                //prevents image unpredictability with overlapping points
+                if(transform.checkError()==0){
+                    transform.update();
+                    img.show();
+                }else{
+                    img.hide();
+                }
+            
+            }
+
+            //on corner click
+            corners.mousedown(function(e) {
+                //target = this corner
+                target = $(this);
+
+                //determine which corner was target and apply transform to that corner
+                //if tl, use topleft, else if tr, use topright, else if bl, use bottomleft, else bottomright
+                targetPoint = target.hasClass("tl") ? transform.topLeft : target.hasClass("tr") ? transform.topRight : target.hasClass("bl") ? transform.bottomLeft : transform.bottomRight;
+                // console.log("targetPoint: "+targetPoint.x);
+
+                onMouseMove.apply(this, Array.prototype.slice.call(arguments));
+                $(window).mousemove(onMouseMove);
+                $(window).mouseup(function() {
+                    $(window).unbind('mousemove', onMouseMove);
+
+
+                    //Show computed details of clip path and matrix
+                    var img = document.getElementById("image");
+
+        var matrixString = window.getComputedStyle(img).webkitTransform;
+        var clipPathString = window.getComputedStyle(img).clipPath;
+        console.log(matrixString);
+        document.getElementById("clipPath").innerHTML = "Clip path: " + clipPathString + ";";
+        document.getElementById('transform').innerHTML = "3D transform: " + matrixString + ";";
+
+                })
+            });
+        </script>
+
+
+
+
+
+
+
+  
+<!-- fullscreen button -->
+  <div style="position: fixed; bottom: 0; display: block;">
+    <button onclick="openFullscreen()">go fullscreen</button>
+    <button type="button" onclick="hideCorners()">hide corners</button>
+    
+    <button type="button" onclick="moveLeft()">move left</button>
+    <button type="button" onclick="moveRight()">move right</button>
+    <button type="button" onclick="moveUp()">move up</button>
+    <button type="button" onclick="moveDown()">move down</button>
+    <button type="button" onclick="enlarge()">+</button>
+    <button type="button" onclick="reduce()">-</button>
+    <button type="button" onclick="hideAll()">hide</button>
+      <!-- just address holder -->
+<div id="camURL" style="color: rgb(22, 144, 201);">http://rp2.cams.fodd.ru/mjpg/video.mjpg</div>
+<div id="transform" style="color: rgb(22, 144, 201);"></div>
+<div id="clipPath" style="color: rgb(22, 144, 201);"></div>
+  </div>
+   
+ 
+  <script>
+    // FULLSCREEN BUTTON
+    // var elem = document.getElementById("container");
+    let elem = document.body;
+
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+        //hide cursor in fullscreen
+        // document.body.style.cursor = 'none';
+        // console.log(document.fullscreenElement);
+        }
+    }
+
+    //listen for fullscreen status change
+    document.addEventListener('fullscreenchange', exitHandler);
+
+    function exitHandler() {
+        //if not in fullscreen
+        if(document.fullscreenElement == null){
+            //change cursor back to default view
+            // document.body.style.cursor = 'default';
+        }
+    }  
+
+    // HIDE CORNERS BUTTON
+    function hideCorners() {
+    
+        var x = document.getElementsByClassName("corner");
+    
+        if (x[0].style.display === "none") {
+            x[0].style.display = "block";
+            x[1].style.display = "block";
+            x[2].style.display = "block";
+            x[3].style.display = "block";
+            document.body.style.backgroundColor = "white"; 
+        } else {
+            x[0].style.display = "none";
+            x[1].style.display = "none";
+            x[2].style.display = "none";
+            x[3].style.display = "none";  
+            document.body.style.backgroundColor = "black"; 
+        }
+    }
+
+    //MOVE BUTTONS LEFT
+    function moveLeft() {
+        var obj = document.getElementById("container");
+        var leftVal = parseInt(obj.style.left, 10);
+        obj.style.left = (leftVal - 2) + "%"; 
+    }
+
+    //RIGHT
+    function moveRight() {
+        var obj = document.getElementById("container");
+        var leftVal = parseInt(obj.style.left, 10);
+        obj.style.left = (leftVal + 2) + "%"; 
+    }
+
+    //UP
+    function moveUp() {
+        var obj = document.getElementById("container");
+        var topVal = parseInt(obj.style.top, 10);
+        // console.log("topVal: "+topVal);
+        obj.style.top = (topVal - 2) + "%";    
+    }
+
+    //DOWN
+    function moveDown() {
+        var obj = document.getElementById("container");
+        var topVal = parseInt(obj.style.top, 10);
+        obj.style.top = (topVal + 2) + "%"; 
+    }
+
+    //ENLARGE BUTTON
+    function enlarge() {
+
+        // //increment to scale with
+        // let increment = 0.05;
+        // //find container
+        // let containerDiv = document.getElementById('container');
+        // //get the css transform of container
+        // var curTransform = containerDiv.style.transform;
+        // //make regex to find first decimal point number in transform
+        // // let regex = /[0-9]*\.[0-9]+/i;
+        // let regex = /(?<=\()(.*?)(?=\))/;
+
+        // //alt style of above
+        // // var myRegexp = new RegExp(/[0-9]*\.[0-9]+/i);
+
+        // //execute regex to find the matched decimal number
+        // var match = regex.exec(curTransform);
+        // //convert the number to a float and add to it
+        // let matchNew = parseFloat(match) + increment;
+        // console.log("m1: "+matchNew);
+        // matchNew = (Math.round(matchNew*100)/100).toFixed(2);
+        // console.log("m2: "+matchNew);
+        // //round to two decimal places
+        // // MatchNew = Math.round(matchNew * 100) / 100
+        // //place the new number into the css transform string
+        // var newTransform = curTransform.replace(regex, matchNew);
+        // //put the new css transform string back into the container style
+        // containerDiv.style.transform = newTransform;
+        // console.log("new transform css: "+newTransform)
+        
+        document.documentElement.style.setProperty('--imageWidth', '800px');
+        document.documentElement.style.setProperty('--imageHeight', '450px');
+
+           //set variable equal to the css id container 'id'
+           var container = $("#container");
+            //set variable equal to the css class 'img'
+            var img = $(".img");
+
+            //set variable corners equal to the css class 'corner'
+            //Note: variables become arrays for each DOM in the class. 
+            var corners = $(".corner");
+
+            // console.log("image x: "+document.getElementById("image").offsetHeight);
+
+            var IMG_WIDTH = document.getElementById("image").offsetWidth;
+            var IMG_HEIGHT = document.getElementById("image").offsetHeight;
+
+            //img[0] is first DOM element of class 'img'
+            //the transform is acting on the image
+            var transform = new PerspectiveTransform(img[0], IMG_WIDTH, IMG_HEIGHT, true);
+
+            //set 'tl' equal to the css position of the top left corner
+            var tl = corners.filter(".tl").css({
+                left : transform.topLeft.x,
+                top : transform.topLeft.y
+            });
+            var tr = corners.filter(".tr").css({
+                left : transform.topRight.x,
+                top : transform.topRight.y
+            });
+            var bl = corners.filter(".bl").css({
+                left : transform.bottomLeft.x,
+                top : transform.bottomLeft.y
+            });
+            var br = corners.filter(".br").css({
+                left : transform.bottomRight.x,
+                top : transform.bottomRight.y
+            });
+
+
+    }
+
+
+    //REDUCE BUTTON
+    function reduce() {
+
+        //increment to scale with
+        let increment = 0.05;
+        //find container
+        // let containerDiv = document.getElementById('container');
+        let containerDiv = document.body;
+
+        //get the css transform of container
+        var curTransform = containerDiv.style.transform;
+        console.log(curTransform);
+        //make regex to find first decimal point number in transform
+        // let regex = /[0-9]*\.[0-9]+/i;
+        let regex = /(?<=\()(.*?)(?=\))/;
+
+        //alt style of above
+        // var myRegexp = new RegExp(/[0-9]*\.[0-9]+/i);
+
+        //execute regex to find the matched decimal number
+        var match = regex.exec(curTransform);
+
+        //convert the number to a float, add the increment
+        let matchNew = parseFloat(match) - increment;
+        console.log("m3: "+matchNew);
+        matchNew = (Math.round(matchNew*100)/100).toFixed(2);
+        console.log("m4: "+matchNew);
+        
+        //place the new number into the css transform string
+        var newTransform = curTransform.replace(regex, matchNew);
+        //put the new css transform string back into the container style
+        containerDiv.style.transform = newTransform;
+        console.log("new transform css: "+newTransform)
+
+    }
+
+    //HIDE ALL BUTTON
+    let hidden = false;
+
+    function hideAll() {
+        let allButtons = document.getElementsByTagName("button");
+        for (var i = 0; i < allButtons.length; ++i) {
+            var item = allButtons[i];  
+            item.style.display = "none";
+        }
+        document.getElementById("camURL").style.display = "none";
+        document.getElementById("transform").style.display = "none";
+        document.getElementById("clipPath").style.display = "none";
+        document.body.style.backgroundColor = "black";
+
+        var x = document.getElementsByClassName("corner");
+            x[0].style.display = "none";
+            x[1].style.display = "none";
+            x[2].style.display = "none";
+            x[3].style.display = "none";  
+
+        document.body.style.cursor = 'none';    
+
+        hidden = true;
+    }
+
+
+    document.addEventListener('keypress', logKey);
+
+    function logKey() {
+        if(hidden){
+
+            let allButtons = document.getElementsByTagName("button");
+            for (var i = 0; i < allButtons.length; ++i) {
+                var item = allButtons[i];  
+                item.style.display = "inline-block";
+            }
+            document.getElementById("camURL").style.display = "block";
+            document.getElementById("transform").style.display = "block";
+            document.getElementById("clipPath").style.display = "block";
+            document.body.style.backgroundColor = "white";
+
+            var x = document.getElementsByClassName("corner");
+                x[0].style.display = "block";
+                x[1].style.display = "block";
+                x[2].style.display = "block";
+                x[3].style.display = "block"; 
+
+            document.body.style.cursor = 'default';
+                
+            hidden = false;
+        }
+    }
+
+
+
+
+      </script>
+
+
+
+    </body>
+</html>

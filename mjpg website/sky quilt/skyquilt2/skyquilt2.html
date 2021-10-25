@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="skyquilt2.css"> -->
+    <title>SkyQuilt2</title>
+
+    <style>
+
+#fullscreendiv {
+    /* overflow: hidden; */
+}
+
+.container-div {
+
+    position:absolute; 
+
+    width: 1200px; 
+    height: 1200px; 
+
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-600px) translateY(-600px); 
+    margin: auto; 
+    overflow: hidden;
+
+}
+
+#mooreheadncbayandpiers {
+    /* 1920x1080 */
+    top: 0px;
+    position: absolute;
+    left: -800px;
+    width:1920px; 
+    clip-path: polygon(800px 0px, 1200px 0px, 1200px 400px, 800px 400px); /* 400px square */
+    transform-origin: 800px 0px;
+    transform: scale(3);
+    
+}
+
+#outdoorcityscenesweden {
+
+    /* 1280x720 */
+    position: absolute;
+    left: -330px;
+    top: 0px; /* Move up by amount polygon is spaced from top edge*/
+    width:1280px;
+    clip-path: polygon(
+        496px 166px, 413px 83px, 413px 0px, 496px 83px, 496px 166px,
+        579px 83px, 662px 83px, 579px 166px, 496px 166px,
+        579px 249px, 579px 332px, 496px 249px, 496px 166px,
+        413px 249px, 330px 249px, 413px 166px, 496px 166px);
+
+     /* 330px 0px, 662px 0px, 662px 332px, 330px 332px */
+     /* 332 sq, coords - X: 330, 413, 496, 579, 662  / Y: 0, 83, 166, 249, 332 */
+
+    transform-origin: 330px 0px; /* put transform origin at corner of clip path */
+    transform: scale(3.6145); /* 1200px div / total width of polygon cut */
+    
+}
+
+#portinrussia {
+    /* 640x480 */
+    position: absolute;
+    left: -250px;
+    top: 0px;
+    width:640px;
+    clip-path: polygon(
+        300px 100px, 250px 50px, 350px 50px, 400px 0px, 400px 100px, 450px 150px, 350px 150px, 300px 200px, 300px 150px,
+        400px 150px, 400px 50px, 300px 50px, 300px 100px);
+
+
+    transform-origin: 250px 0px;
+    transform: scale(6);
+
+    /* 250px 0px, 450px 0px, 450px 200px, 250px 200px */
+    /* 200 sq, coords - X: 250, 300, 350, 400, 450  / Y: 0, 50, 100, 150, 200 */
+    
+}
+
+    </style>
+
+</head>
+
+<body style="background-color: black; margin:0%; padding: 0;">
+
+<div id="fullscreendiv" width="100vw" height="100vh">
+
+  <div class="container-div">
+    <img id="mooreheadncbayandpiers" src="http://westcam.carteret.edu/axis-cgi/mjpg/video.cgi">
+  </div>
+
+  <div class="container-div">
+    <img id="outdoorcityscenesweden" src="http://194.103.218.15/axis-cgi/mjpg/video.cgi">
+  </div>
+
+  <div class="container-div"> 
+    <img id="portinrussia" src="http://185.97.165.78/mjpg/video.mjpg">
+  </div>
+
+
+</div>
+
+<script>
+
+    document.addEventListener("keypress", function(event) {
+            
+        if (event.keyCode == 102) { //if 'f' pressed
+            // alert('hi.');
+            openFullscreen();
+        } 
+        
+        if(event.keyCode == 117) { //if 'u' pressed
+          moveUp();
+        }
+
+        if(event.keyCode == 100) { //if 'd' pressed
+          moveDown();
+        }
+
+        if(event.keyCode == 108) { //if 'l' pressed
+          moveLeft();
+        }
+
+        if(event.keyCode == 114) { //if 'r' pressed
+          moveRight();
+        }
+
+        if(event.keyCode == 45) { //if '-' (minus) pressed
+        console.log("minus");  
+        // zoomOut();
+        }
+
+        if(event.keyCode == 61) { //if '=' (plus) pressed
+        console.log("Plus"); 
+        // zoomIn();
+        }
+
+    });
+
+    function openFullscreen() {
+      var elem = document.getElementById("fullscreendiv");
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
+    }
+
+    //UP
+    function moveUp() {
+      var containers = document.getElementsByClassName("container-div");
+      
+      //current top value of a container (always in pixls since computed)
+      var topVal = window.getComputedStyle(containers[0], null).getPropertyValue("top"); 
+
+      //cycle thru class and change all by 10px
+      for (var i=0; i<containers.length; i++) {
+        containers[i].style.top = (parseInt(topVal) - 10) + "px";
+      }
+  
+    }
+
+    //DOWN
+    function moveDown() {
+      var containers = document.getElementsByClassName("container-div");
+      
+      //current top value of a container (always in pixls since computed)
+      var topVal = window.getComputedStyle(containers[0], null).getPropertyValue("top"); 
+
+      //cycle thru class and change all by 10px
+      for (var i=0; i<containers.length; i++) {
+        containers[i].style.top = (parseInt(topVal) + 10) + "px";
+      }
+    }
+
+    //LEFT
+    function moveLeft() {
+      var containers = document.getElementsByClassName("container-div");
+      
+      //current top value of a container (always in pixls since computed)
+      var leftVal = window.getComputedStyle(containers[0], null).getPropertyValue("left"); 
+
+      //cycle thru class and change all by 10px
+      for (var i=0; i<containers.length; i++) {
+        containers[i].style.left = (parseInt(leftVal) - 10) + "px";
+      }
+    }
+
+    //RIGHT
+    function moveRight() {
+      var containers = document.getElementsByClassName("container-div");
+      
+      //current top value of a container (always in pixls since computed)
+      var leftVal = window.getComputedStyle(containers[0], null).getPropertyValue("left"); 
+
+      //cycle thru class and change all by 10px
+      for (var i=0; i<containers.length; i++) {
+        containers[i].style.left = (parseInt(leftVal) + 10) + "px";
+      }
+    }
+
+    </script>
+
+</body>
+</html>

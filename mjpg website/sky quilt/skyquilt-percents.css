@@ -1,0 +1,120 @@
+.container-div1 {
+
+    /* position:absolute;  */
+    /* width: 1200px; 
+    height: 1200px;  */
+    width: 50%; 
+    height: 50vw; 
+    /* top: 50%; 
+    left: 50%;  */
+    /* transform: translateX(-50%) translateY(-50%);  */
+    margin: auto; 
+    background-color: darkolivegreen;
+    position: relative;
+    /* overflow: hidden; */
+
+}
+
+.container-div2 {
+
+    position:absolute; 
+    /* width: 1200px; 
+    height: 1200px;  */
+    width: 50%; 
+    height: 50vw;
+
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%); 
+    margin: auto; 
+
+}
+
+.container-div3 {
+
+    position:absolute; 
+    /* width: 1200px; 
+    height: 1200px;  */
+    width: 50%; 
+    height: 50vw; 
+    top: 50%; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%); 
+    margin: auto; 
+
+}
+
+#fieldwithbuildingsantacruz {
+
+    /* top: 0px; */
+    /* position: absolute; */
+    /* left: -320px; */
+    /* width:1200px; */
+    /* max-width: 100%; */
+    /* clip-path: polygon(320px 0px, 640px 0px, 640px 320px, 320px 320px); */
+    /* transform-origin: 320px 0px;
+    transform: scale(3.75); */
+
+    /*  */
+
+    --pixel-aspect: .625; /* image height divided by image width */
+    position: absolute;
+    left: 0%; 
+    top: calc(var(--pixel-aspect) * -36%); /* aspect x top corner of cut */
+    /* top: -22.5%; */  /* same as above */
+    width: 100%; 
+    height: calc(var(--pixel-aspect) * 100%); 
+    clip-path: polygon(0% 36%, 40% 36%, 40% 100%, 0% 100%);
+    transform-origin: 0% 36%; /* top left corner of clip path */
+    transform: scale(2.5); /* 100 / total percent of clip path cut
+    /* opacity: 0.53; */
+
+    
+}
+
+#utahskyandmountains {
+
+    position: absolute;
+    left: 0;
+    top: -25px; /* Move up by amount polygon is spaced from top edge*/
+    width:768px;
+    height:576px;
+    clip-path: polygon(0px 115px, 90px 115px, 90px 25px, 180px 115px, 270px 25px, 270px 115px, 360px 115px,
+     270px 205px, 
+     360px 295px, 270px 295px, 270px 385px, 180px 295px, 90px 385px, 90px 295px, 0px 295px, 
+     90px 205px);
+    transform-origin: 0px 25px; /* put transform origin at corner of clip path */
+    transform: scale(3.3333); /* 1200px div / total width of polygon cut, 360px */
+    
+    
+}
+
+#halfmoonbaycali {
+
+    /* position: absolute;
+    left: -350px;
+    top: 270px;
+    width:800px;
+    height: 600px;
+    clip-path: polygon(650px 30px, 800px 30px, 800px 180px, 650px 180px);
+    transform-origin: 650px 30px;
+    transform: scale(4); */
+
+    /* 800x600 half moon bay */
+    --pixel-aspect: .75; /* image height divided by image width */
+    position: absolute;
+    left: -0%; 
+    top: 0%; /* aspect x top corner of cut */
+    /* top: -22.5%; */  /* same as above */
+    width: 100%; 
+    height: calc(var(--pixel-aspect) * 100%); 
+    clip-path: polygon(81.25% 5%, 100% 5%, 100% 30%, 81.25% 30%);
+    transform-origin: 81.25% 5%; /* top left corner of clip path */
+    transform: scale(2.666); /* 100 / total percent of clip path cut
+    /* opacity: 0.53; */
+    
+}
+
+
+
+

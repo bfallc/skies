@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        } 
+
+    </style>
+
+</head>
+<body>
+    
+
+<img id="feed" style="display: block;" src="http://htadmcam01.larimer.org/mjpg/video.mjpg">
+
+<div id="text"></div>
+<div id="dims"></div>
+<div id="clipPath"></div>
+<div id="clippixels"></div>
+
+<script>
+
+    function printMousePos(event) {
+        //print mouse position on click
+        document.getElementById("text").textContent =
+            "mouseX: " + event.clientX +
+            ", mouseY: " + event.clientY;
+
+        //get image width and height
+        var feed = document.getElementById('feed');
+        var width = feed.clientWidth;
+        var height = feed.clientHeight;
+
+        document.getElementById("dims").textContent =
+            "width: " + width +
+            ", height: " + height;
+
+    
+        let percentX = (parseFloat(event.clientX / width) * 100).toFixed(3);
+        let percentY = (parseFloat(event.clientY / height) * 100).toFixed(3);
+        
+        //if within picture image, print percentages
+        if(percentX <= 100 && percentY <= 100){
+            document.getElementById("clipPath").textContent += percentX + "% " + percentY + "%, ";
+            document.getElementById("clippixels").textContent += event.clientX +"px " + event.clientY + "px, ";
+        
+        }
+
+
+    }
+
+
+
+
+    document.addEventListener("click", printMousePos);
+
+
+</script>
+
+
+</body>
+</html>

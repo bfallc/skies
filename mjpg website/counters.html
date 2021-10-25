@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black; margin:0; padding: 0;">
+
+<div id="fullscreendiv">
+
+    <script>
+
+        setInterval(function() {
+          let newImage = document.getElementById("taipeitaiwan");
+          newImage.src = "http://111.70.6.19:8081/cgi-bin/viewer/video.jpg?resolution=640x480#" + Date.now();
+        }, 1500);
+        
+    </script>
+
+  <div id="container-div" style="width: 1200px; height:370px; margin: auto; overflow: hidden;">
+    <img id="taipeitaiwan" style="
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width:1200px;
+    /* clip-path: polygon(0% 2.5%, 100% 2.5%, 100% 42%, 0% 42%);*/"
+    src="http://111.70.6.19:8081/cgi-bin/viewer/video.jpg?resolution=640x480">
+  </div>
+
+  <div id="container-div" style="width: 1200px; height:370px; margin: auto; overflow: hidden;">
+    <img id="taipeitaiwan" style="
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width:1200px;
+    /* clip-path: polygon(0% 2.5%, 100% 2.5%, 100% 42%, 0% 42%);*/"
+    src="http://82.81.248.6:8080/?action=stream">
+  </div>
+
+<!-- 
+    
+http://122.252.238.135:8082/jpgmulreq/1/image.jpg?key=1516975535684&lq=1  guwahati india
+http://125.17.248.91:8080/cgi-bin/viewer/video.jpg?r=1634529336  mumbai india 
+http://82.81.248.6:8080/?action=stream  tel aviv israel
+-->
+
+
+  </div>
+
+
+
+</body>
+</html>
